@@ -5,7 +5,7 @@ import redis.clients.jedis.Jedis;
 public class RedisConfiguration {
     private Jedis jedis;
 
-    public void establishConnection(String hostname, int port) {
+    public void establishConnection(final String hostname, final int port) {
         try {
             jedis = new Jedis(hostname, port);
             jedis.connect();

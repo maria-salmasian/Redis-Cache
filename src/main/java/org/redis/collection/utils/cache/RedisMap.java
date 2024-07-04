@@ -107,14 +107,14 @@ public class RedisMap implements Map<String, Integer> {
         return scanAndConvertEntries((entryKey, entryValue) -> entryKey);
     }
 
-    private <T> Set<T> scanAndConvertEntries(BiFunction<String, String, T> converter) {
-        Set<T> resultSet = new HashSet<>();
+    private <T> Set<T> scanAndConvertEntries(final BiFunction<String, String, T> converter) {
+        final Set<T> resultSet = new HashSet<>();
         String cursor = ScanParams.SCAN_POINTER_START;
 
         do {
-            ScanResult<Map.Entry<String, String>> scanResult = jedis.hscan(redisKey, cursor);
+            final ScanResult<Map.Entry<String, String>> scanResult = jedis.hscan(redisKey, cursor);
             for (Map.Entry<String, String> entry : scanResult.getResult()) {
-                T convertedEntry = converter.apply(entry.getKey(), entry.getValue());
+                final T convertedEntry = converter.apply(entry.getKey(), entry.getValue());
                 resultSet.add(convertedEntry);
             }
             cursor = scanResult.getCursor();
